@@ -1,0 +1,712 @@
+/* ============================================
+   Torrent PWA – Dark theme inspired by designs
+   Compatible iOS / iPadOS Safari
+   ============================================ */
+
+:root {
+  --bg: #0d0d0f;
+  --bg-card: #1a1a1e;
+  --bg-elevated: #222228;
+  --bg-input: #2a2a30;
+  --text: #f5f5f7;
+  --text-secondary: #a1a1a6;
+  --text-muted: #6e6e73;
+  --accent: #e94560;
+  --accent-hover: #ff6b81;
+  --blue: #0a84ff;
+  --green: #30d158;
+  --orange: #ff9f0a;
+  --red: #ff453a;
+  --border: #2c2c2e;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --tabbar-h: 56px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* ========== HEADER ========== */
+.app-header {
+  padding: calc(12px + var(--safe-top)) 16px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  z-index: 20;
+}
+
+.app-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.15s;
+}
+
+.btn-icon:active {
+  transform: scale(0.92);
+  background: var(--accent-hover);
+}
+
+/* ========== MAIN CONTENT ========== */
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px 16px calc(var(--tabbar-h) + var(--safe-bottom) + 12px);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  text-align: center;
+  color: var(--text-muted);
+  padding: 24px;
+}
+
+.empty-state .icon {
+  font-size: 56px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 17px;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.empty-state small {
+  font-size: 14px;
+  max-width: 280px;
+  line-height: 1.45;
+}
+
+/* ========== TORRENT CARDS ========== */
+.torrent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.torrent-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s;
+  position: relative;
+}
+
+.torrent-card:active {
+  background: var(--bg-elevated);
+}
+
+.torrent-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.torrent-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(233, 69, 96, 0.15);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.torrent-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.torrent-name {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.torrent-status {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.torrent-percent {
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.torrent-percent.downloading { color: var(--blue); }
+.torrent-percent.done { color: var(--green); }
+.torrent-percent.paused { color: var(--text-muted); }
+.torrent-percent.error { color: var(--red); }
+
+.progress-bar {
+  height: 5px;
+  background: #2c2c2e;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.progress-fill.downloading { background: var(--blue); }
+.progress-fill.done { background: var(--green); }
+.progress-fill.paused { background: #48484a; }
+.progress-fill.error { background: var(--red); }
+
+.torrent-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.torrent-stats span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ========== TAB BAR ========== */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--tabbar-h) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  background: rgba(13, 13, 15, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 30;
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 0;
+  transition: color 0.15s;
+}
+
+.tab-item.active {
+  color: var(--accent);
+}
+
+.tab-item svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ========== MODAL / SCREENS ========== */
+.screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+  visibility: hidden;
+}
+
+.screen.open {
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.screen-header {
+  padding: calc(12px + var(--safe-top)) 16px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.screen-header h2 {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.btn-text {
+  background: none;
+  border: none;
+  color: var(--blue);
+  font-size: 17px;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 8px 4px;
+}
+
+.screen-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px 16px calc(24px + var(--safe-bottom));
+}
+
+/* ========== ADD SCREEN ========== */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.input-box {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  min-height: 110px;
+  position: relative;
+}
+
+.input-box textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 16px;
+  font-family: inherit;
+  resize: none;
+  outline: none;
+  min-height: 70px;
+  line-height: 1.4;
+}
+
+.input-box textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.btn-paste {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(10, 132, 255, 0.15);
+  color: var(--blue);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-secondary {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--blue);
+  font-size: 16px;
+  font-weight: 500;
+  padding: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  width: 100%;
+  background: var(--blue);
+  border: none;
+  border-radius: var(--radius);
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 16px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary:active:not(:disabled) {
+  opacity: 0.85;
+}
+
+.helper-text {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 16px;
+  line-height: 1.4;
+}
+
+/* ========== DETAIL SCREEN ========== */
+.detail-header {
+  padding: 8px 16px 16px;
+}
+
+.detail-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  word-break: break-all;
+}
+
+.detail-meta {
+  font-size: 14px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detail-meta .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+
+.detail-meta .dot.done { background: var(--green); }
+.detail-meta .dot.paused { background: var(--text-muted); }
+
+.segmented {
+  display: flex;
+  background: var(--bg-input);
+  border-radius: 10px;
+  padding: 3px;
+  margin: 0 16px 16px;
+}
+
+.segmented button {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.segmented button.active {
+  background: var(--bg-elevated);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.files-list {
+  padding: 0 16px;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.file-item:last-child {
+  border-bottom: none;
+}
+
+.file-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.file-check.checked {
+  background: #5e5ce6;
+  border-color: #5e5ce6;
+  color: white;
+}
+
+.file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-name {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-size {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.file-progress {
+  height: 3px;
+  background: #2c2c2e;
+  border-radius: 2px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.file-progress-fill {
+  height: 100%;
+  background: #5e5ce6;
+  border-radius: 2px;
+}
+
+.priority-select {
+  background: var(--bg-input);
+  border: none;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.priority-select.high { color: #30d158; }
+.priority-select.normal { color: var(--text-secondary); }
+.priority-select.low { color: var(--blue); }
+
+.detail-actions {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  padding-bottom: calc(16px + var(--safe-bottom));
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+
+.btn-action {
+  flex: 1;
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-action.pause {
+  background: var(--bg-input);
+  color: var(--text);
+}
+
+.btn-action.remove {
+  background: rgba(255, 69, 58, 0.15);
+  color: var(--red);
+}
+
+/* ========== HISTORY ========== */
+.history-item {
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.history-item .hash {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  word-break: break-all;
+}
+
+/* ========== TOAST ========== */
+.toast {
+  position: fixed;
+  bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 20px);
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--bg-elevated);
+  color: var(--text);
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  z-index: 100;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  max-width: 90%;
+  text-align: center;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ========== SETTINGS ========== */
+.settings-group {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 16px;
+}
+
+.settings-row:last-child {
+  border-bottom: none;
+}
+
+.settings-row .value {
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+/* ========== iPad / large screens ========== */
+@media (min-width: 768px) {
+  #app {
+    max-width: 1100px;
+    margin: 0 auto;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+
+  .main-content {
+    padding: 20px 24px calc(var(--tabbar-h) + var(--safe-bottom) + 20px);
+  }
+
+  .torrent-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 14px;
+  }
+}
+
+/* ========== Utilities ========== */
+.hidden { display: none !important; }
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

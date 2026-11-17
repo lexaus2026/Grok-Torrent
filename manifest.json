@@ -1,0 +1,26 @@
+{
+  "name": "Torrent PWA",
+  "short_name": "Torrents",
+  "description": "Client BitTorrent léger et purement client-side – inspiré de Transmission",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0d0d0f",
+  "theme_color": "#0d0d0f",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["utilities", "productivity"],
+  "lang": "fr"
+}
